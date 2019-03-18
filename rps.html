@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rock Paper Scissors</title>
+  </head>
+
+  <body>
+    <div id="selections">
+      <span id="user"></span>&nbsp;<span>vs.</span>&nbsp;<span id="computer"></span>
+    </div>
+    <div id="winner"></div>
+
+    <div id="buttons">
+      <button>Rock</button>
+      <button>Paper</button>
+      <button>Scissors</button>
+    </div>
+  </body>
+
+  <style>
+    body {
+      width: 25%;
+      border: 1px solid black;
+      padding: 10px;
+      margin: 0 auto;
+    }
+
+    #selections,
+    #winner {
+      height: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    #buttons {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    button {
+      border: none;
+      outline: 0;
+      background-color: #81c347;
+      border-radius: 3px;
+      width: 100px;
+      height: 25px;
+    }
+
+    button:active {
+      background-color: #51a120;
+    }
+  </style>
+
+  <script>
+    const rpsMapping = {
+      Rock: 'Scissors',
+      Paper: 'Rock',
+      Scissors: 'Paper',
+    }
+
+    function simulateRound({ target }) {
+      const userSelection = target.textContent;
+      const computerSelection = Object.keys(rpsMapping)[Math.floor(Math.random() * 3)];
+      const winnerText = userSelection === computerSelection ? 'Tie' : rpsMapping[userSelection] === computerSelection ? 'You Win!' : 'You Lose';
+
+      const nodes = {
+        user: userSelection,
+        computer: computerSelection,
+        winner: winnerText
+      }
+
+      for (let id in nodes) {
+        document.getElementById(id).textContent = nodes[id];
+      }
+    }
+
+    document.getElementById('buttons').addEventListener('click', simulateRound);
+  </script>
+</html>
